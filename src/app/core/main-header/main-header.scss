@@ -1,0 +1,25 @@
+.outer {
+    width: 100%;
+    height: 60px;
+    background-color: var(--primary-color);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.access-dashboard {
+    border-radius: 50px;
+    background-color: var(--danger-color);
+    color: var(--light-color);
+    height: 35px;
+    width: 150px;
+    border: none;
+}
+
+.left {
+    img {
+        width: 50px;
+        cursor: pointer;
+    }
+}
