@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { HomePageContext } from './pages/home-page-context/home-page-context';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: '/home/process', pathMatch: 'full' },
@@ -32,6 +33,41 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/dashboard-page/dashboard-page').then((ob) => ob.DashboardPage),
         title: 'Dashboard',
+        canActivate: [authGuard], children: [
+            {
+                path: '', redirectTo: '/dashboard/customers', pathMatch: 'full'
+            },
+            {
+                path: 'customers',
+                loadComponent: () =>
+                    import('./pages/dashboard-page/inner-pages/customers/customers').then((ob) => ob.Customers),
+                title: 'Customers MGT',
+            },
+            {
+                path: 'statistics',
+                loadComponent: () =>
+                    import('./pages/dashboard-page/inner-pages/statistics/statistics').then((ob) => ob.Statistics),
+                title: 'Reports & Statistics',
+            },
+            {
+                path: 'orders',
+                loadComponent: () =>
+                    import('./pages/dashboard-page/inner-pages/orders/orders').then((ob) => ob.Orders),
+                title: 'Orders MGT',
+            },
+            {
+                path: 'products',
+                loadComponent: () =>
+                    import('./pages/dashboard-page/inner-pages/products/products').then((ob) => ob.Products),
+                title: 'Products MGT',
+            },
+            {
+                path: 'place-order',
+                loadComponent: () =>
+                    import('./pages/dashboard-page/inner-pages/place-order/place-order').then((ob) => ob.PlaceOrder),
+                title: 'Place Order',
+            },
+        ]
     },
     {
         path: '**',

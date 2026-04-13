@@ -1,0 +1,74 @@
+.outer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.playground {
+    flex: 1;
+    overflow: auto;
+}
+
+.header-wrapper,
+.footer-wrapper {
+    width: 100vw;
+    height: 60px;
+}
+
+/* ── Tab Bar ── */
+.tab-bar {
+    display: flex;
+    gap: 4px;
+    padding: 0 16px;
+    background: var(--light-color);
+    border-bottom: 2px solid var(--gray-color);
+    overflow-x: auto;
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.tab-bar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Chrome */
+
+.tab-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 12px 18px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--dark-gray-color);
+    text-decoration: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    /* overlap parent border */
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.tab-item:hover {
+    color: var(--primary-color);
+    background: var(--light-color);
+}
+
+.active {
+    color: var(--blue-color);
+    border-bottom-color: var(--blue-color);
+    font-weight: 600;
+}
+
+.tab-icon {
+    font-size: 1rem;
+}
+
+/* ── Content Area ── */
+.tab-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px;
+    background: var(--light-color);
+}
