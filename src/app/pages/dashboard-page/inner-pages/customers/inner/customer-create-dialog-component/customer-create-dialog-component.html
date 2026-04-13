@@ -1,0 +1,57 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <mat-icon class="header-icon">person_add</mat-icon>
+        <h2>New Customer</h2>
+        <button class="close-btn" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body">
+        <form [formGroup]="form">
+            <div class="form-group">
+                <label>Full Name <span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <mat-icon class="input-icon">person</mat-icon>
+                    <input formControlName="name" type="text" placeholder="Enter full name"
+                        [class.error]="form.get('name')?.invalid && form.get('name')?.touched" />
+                </div>
+                <span class="error-msg" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">
+                    Name is required
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>Address <span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <mat-icon class="input-icon">location_on</mat-icon>
+                    <input formControlName="address" type="text" placeholder="Enter address"
+                        [class.error]="form.get('address')?.invalid && form.get('address')?.touched" />
+                </div>
+                <span class="error-msg" *ngIf="form.get('address')?.invalid && form.get('address')?.touched">
+                    Address is required
+                </span>
+            </div>
+
+            <div class="form-group">
+                <label>Salary <span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <mat-icon class="input-icon">attach_money</mat-icon>
+                    <input formControlName="salary" type="number" placeholder="Enter salary" min="0"
+                        [class.error]="form.get('salary')?.invalid && form.get('salary')?.touched" />
+                </div>
+                <span class="error-msg" *ngIf="form.get('salary')?.invalid && form.get('salary')?.touched">
+                    Valid salary is required
+                </span>
+            </div>
+        </form>
+    </div>
+
+    <div class="dialog-footer">
+        <button class="btn-cancel" (click)="close()">Cancel</button>
+        <button class="btn-save" (click)="save()" [disabled]="form.invalid">
+            <mat-icon>save</mat-icon>
+            Create Customer
+        </button>
+    </div>
+</div>
