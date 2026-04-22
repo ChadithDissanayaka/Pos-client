@@ -1,0 +1,68 @@
+<div class="page-container">
+    <div class="page-header">
+        <div class="header-left">
+            <h1 class="page-title">Customers</h1>
+            <span class="record-count">{{ filteredCustomers.length }} records</span>
+        </div>
+        <div class="header-actions">
+            <div class="search-bar">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input type="text" placeholder="Search customers..." [(ngModel)]="searchTerm" (input)="onSearch()"
+                    class="search-input" />
+                <mat-icon *ngIf="searchTerm" class="clear-icon" (click)="clearSearch()">close</mat-icon>
+            </div>
+            <button class="btn-primary" (click)="openCreateDialog()">
+                <mat-icon>add</mat-icon>
+                New Customer
+            </button>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let customer of pagedCustomers; let i = index" class="table-row">
+                    <td class="id-cell">{{ customer.id }}</td>
+                    <td class="name-cell">
+                        <div class="avatar">{{ customer.name.charAt(0) }}</div>
+                        <span>{{ customer.name }}</span>
+                    </td>
+                    <td class="address-cell">{{ customer.address }}</td>
+                    <td class="salary-cell">{{ customer.salary | currency }}</td>
+                    <td class="actions-cell">
+                        <button class="icon-btn edit-btn" (click)="openUpdateDialog(customer)" matTooltip="Update">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="icon-btn delete-btn" (click)="deleteCustomer(customer.id)" matTooltip="Delete">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="pagedCustomers.length === 0">
+                    <td colspan="5" class="empty-state">
+                        <mat-icon>person_off</mat-icon>
+                        <p>No customers found</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-wrapper">
+        <span class="pagination-info">
+            Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ min(currentPage * pageSize, filteredCustomers.length) }}
+            of {{ filteredCustomers.length }}
+        </span>
+        <mat-paginator [length]="filteredCustomers.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
+            (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

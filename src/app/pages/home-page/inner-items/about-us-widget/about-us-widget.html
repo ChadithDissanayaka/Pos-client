@@ -1,1 +1,45 @@
-<p>about-us-widget works!</p>
+<section class="about-us">
+  <div class="section-header">
+    <span class="section-tag">Why Choose Us</span>
+    <h2 class="section-title">Built for Modern <span class="highlight">Businesses</span></h2>
+    <p class="section-desc">
+      We've reimagined the point-of-sale experience from the ground up,
+      combining powerful features with an interface your team will love.
+    </p>
+  </div>
+
+  <div class="features-grid">
+    @for (feature of features; track feature.title) {
+      <div class="feature-card">
+        <div class="feature-icon">{{ feature.icon }}</div>
+        <h3 class="feature-title">{{ feature.title }}</h3>
+        <p class="feature-desc">{{ feature.description }}</p>
+      </div>
+    }
+  </div>
+
+  <div class="about-bottom">
+    <div class="about-text">
+      <h3>Trusted by businesses across <span class="highlight">50+ countries</span></h3>
+      <p>
+        From small cafés to multi-location retail chains, our POS system adapts
+        to your unique needs. Join thousands of businesses that have already
+        transformed their operations.
+      </p>
+    </div>
+    <div class="trust-badges">
+      <div class="badge">
+        <span class="badge-icon">🏆</span>
+        <span class="badge-text">Award Winning</span>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">🛡️</span>
+        <span class="badge-text">PCI Compliant</span>
+      </div>
+      <div class="badge">
+        <span class="badge-icon">🌍</span>
+        <span class="badge-text">Global Support</span>
+      </div>
+    </div>
+  </div>
+</section>

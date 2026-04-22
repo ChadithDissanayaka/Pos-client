@@ -1,0 +1,103 @@
+<div class="dialog-container">
+    <div class="dialog-header">
+        <div class="header-left">
+            <mat-icon class="header-icon">receipt_long</mat-icon>
+            <div>
+                <h2>Order Details</h2>
+                <span class="order-id">Order #{{ data.id }}</span>
+            </div>
+        </div>
+        <button class="close-btn" (click)="close()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+
+    <div class="dialog-body">
+
+        <!-- Order Info -->
+        <div class="section">
+            <h3 class="section-title">
+                <mat-icon>info</mat-icon> Order Information
+            </h3>
+            <div class="info-grid">
+                <div class="info-item">
+                    <span class="info-label">Order ID</span>
+                    <span class="info-value highlight">#{{ data.id }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Order Date</span>
+                    <span class="info-value">{{ data.date | date: 'MMMM d, y' }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Total Cost</span>
+                    <span class="info-value cost">{{ data.orderCost | currency }}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Total Items</span>
+                    <span class="info-value">{{ data.items.length }} item{{ data.items.length !== 1 ? 's' : '' }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Customer Details -->
+        <div class="section">
+            <h3 class="section-title">
+                <mat-icon>person</mat-icon> Customer Details
+            </h3>
+            <div class="customer-card">
+                <div class="customer-avatar">{{ data.customerName.charAt(0) }}</div>
+                <div class="customer-info">
+                    <div class="customer-name">{{ data.customerName }}</div>
+                    <div class="customer-id">Customer ID: #{{ data.customerId }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Products List -->
+        <div class="section">
+            <h3 class="section-title">
+                <mat-icon>inventory_2</mat-icon> Products
+            </h3>
+            <div class="products-table-wrapper">
+                <table class="products-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Qty</th>
+                            <th>Unit Price</th>
+                            <th>Subtotal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of data.items">
+                            <td class="product-name">{{ item.productDescription }}</td>
+                            <td>
+                                <span class="qty-pill">{{ item.qty }}</span>
+                            </td>
+                            <td>{{ item.unitPrice | currency }}</td>
+                            <td class="subtotal">{{ item.qty * item.unitPrice | currency }}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="total-row">
+                            <td colspan="3" class="total-label">Total</td>
+                            <td class="total-value">{{ data.orderCost | currency }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="dialog-footer">
+        <button class="btn-close" (click)="close()">
+            <mat-icon>close</mat-icon>
+            Close
+        </button>
+    </div>
+</div>

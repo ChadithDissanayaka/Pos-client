@@ -1,0 +1,138 @@
+<div class="page-container">
+    <div class="page-header">
+        <button class="btn-back" (click)="goBack()">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div>
+            <h1 class="page-title">Place New Order</h1>
+            <p class="page-subtitle">Fill in the details to create a new order</p>
+        </div>
+    </div>
+
+    <div class="order-form-layout">
+
+        <!-- Left Column: Customer + Products -->
+        <div class="form-column">
+
+            <!-- Customer Selection -->
+            <div class="card">
+                <div class="card-header">
+                    <mat-icon>person</mat-icon>
+                    <h3>Select Customer</h3>
+                </div>
+                <div class="card-body">
+                    <div class="search-bar">
+                        <mat-icon>search</mat-icon>
+                        <input type="text" placeholder="Search customers..." [(ngModel)]="customerSearch"
+                            (input)="filterCustomers()" />
+                    </div>
+                    <div class="select-list">
+                        <div *ngFor="let c of filteredCustomers" class="select-item"
+                            [class.selected]="selectedCustomer?.id === c.id" (click)="selectCustomer(c)">
+                            <div class="item-avatar">{{ c.name.charAt(0) }}</div>
+                            <div class="item-info">
+                                <div class="item-name">{{ c.name }}</div>
+                                <div class="item-sub">{{ c.address }}</div>
+                            </div>
+                            <mat-icon *ngIf="selectedCustomer?.id === c.id" class="check-icon">check_circle</mat-icon>
+                        </div>
+                        <div *ngIf="filteredCustomers.length === 0" class="empty-list">No customers found</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Selection -->
+            <div class="card">
+                <div class="card-header">
+                    <mat-icon>inventory_2</mat-icon>
+                    <h3>Add Products</h3>
+                </div>
+                <div class="card-body">
+                    <div class="search-bar">
+                        <mat-icon>search</mat-icon>
+                        <input type="text" placeholder="Search products..." [(ngModel)]="productSearch"
+                            (input)="filterProducts()" />
+                    </div>
+                    <div class="select-list">
+                        <div *ngFor="let p of filteredProducts" class="select-item product-item">
+                            <div class="product-icon-wrap">
+                                <mat-icon>inventory_2</mat-icon>
+                            </div>
+                            <div class="item-info">
+                                <div class="item-name">{{ p.description }}</div>
+                                <div class="item-sub">{{ p.unitPrice | currency }} · Stock: {{ p.qtyOnHand }}</div>
+                            </div>
+                            <div class="qty-controls">
+                                <button class="qty-btn" (click)="decreaseQty(p)" [disabled]="getQty(p.id) === 0">
+                                    <mat-icon>remove</mat-icon>
+                                </button>
+                                <span class="qty-value">{{ getQty(p.id) }}</span>
+                                <button class="qty-btn" (click)="increaseQty(p)">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="filteredProducts.length === 0" class="empty-list">No products found</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Right Column: Order Summary -->
+        <div class="summary-column">
+            <div class="card summary-card">
+                <div class="card-header">
+                    <mat-icon>receipt</mat-icon>
+                    <h3>Order Summary</h3>
+                </div>
+                <div class="card-body">
+
+                    <!-- Selected Customer -->
+                    <div class="summary-section">
+                        <div class="summary-label">Customer</div>
+                        <div *ngIf="selectedCustomer" class="summary-customer">
+                            <div class="sm-avatar">{{ selectedCustomer.name.charAt(0) }}</div>
+                            <span>{{ selectedCustomer.name }}</span>
+                        </div>
+                        <div *ngIf="!selectedCustomer" class="summary-empty">No customer selected</div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- Order Items -->
+                    <div class="summary-section">
+                        <div class="summary-label">Items</div>
+                        <div *ngIf="orderItems.length === 0" class="summary-empty">No items added</div>
+                        <div class="summary-items">
+                            <div *ngFor="let item of orderItems" class="summary-item">
+                                <div class="summary-item-name">{{ item.productDescription }}</div>
+                                <div class="summary-item-detail">
+                                    <span>{{ item.qty }} × {{ item.unitPrice | currency }}</span>
+                                    <strong>{{ item.qty * item.unitPrice | currency }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <!-- Total -->
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <strong>{{ orderTotal | currency }}</strong>
+                    </div>
+
+                    <!-- Actions -->
+                    <button class="btn-place-order" (click)="submitOrder()"
+                        [disabled]="!selectedCustomer || orderItems.length === 0">
+                        <mat-icon>check_circle</mat-icon>
+                        Confirm Order
+                    </button>
+                    <button class="btn-cancel-order" (click)="goBack()">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

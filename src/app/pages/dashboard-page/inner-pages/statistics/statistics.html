@@ -1,0 +1,109 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1 class="page-title">Statistics</h1>
+    <p class="page-subtitle">Business performance overview</p>
+  </div>
+
+  <!-- KPI Cards -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-icon green">
+        <mat-icon>attach_money</mat-icon>
+      </div>
+      <div class="kpi-info">
+        <div class="kpi-value">{{ totalIncome | currency: 'USD' : 'symbol' : '1.0-0' }}</div>
+        <div class="kpi-label">Total Income</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon blue">
+        <mat-icon>receipt_long</mat-icon>
+      </div>
+      <div class="kpi-info">
+        <div class="kpi-value">{{ totalOrders }}</div>
+        <div class="kpi-label">Total Orders</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon primary">
+        <mat-icon>people</mat-icon>
+      </div>
+      <div class="kpi-info">
+        <div class="kpi-value">{{ totalCustomers }}</div>
+        <div class="kpi-label">Total Customers</div>
+      </div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon orange">
+        <mat-icon>inventory_2</mat-icon>
+      </div>
+      <div class="kpi-info">
+        <div class="kpi-value">{{ totalProducts }}</div>
+        <div class="kpi-label">Total Products</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Income History Chart -->
+  <div class="chart-card">
+    <div class="chart-header">
+      <div class="chart-title-wrap">
+        <mat-icon>trending_up</mat-icon>
+        <div>
+          <h3 class="chart-title">Income History</h3>
+          <p class="chart-subtitle">Monthly income for the year 2024</p>
+        </div>
+      </div>
+      <div class="chart-badge">2024</div>
+    </div>
+    <div class="chart-body">
+      <apx-chart [series]="chartSeries" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+        [yaxis]="chartOptions.yaxis" [stroke]="chartOptions.stroke" [fill]="chartOptions.fill"
+        [tooltip]="chartOptions.tooltip" [grid]="chartOptions.grid" [markers]="chartOptions.markers"
+        [dataLabels]="chartOptions.dataLabels" [colors]="chartOptions.colors"></apx-chart>
+    </div>
+  </div>
+
+  <!-- Bottom Charts Row -->
+  <div class="charts-row">
+
+    <!-- Orders per Month Bar Chart -->
+    <div class="chart-card half">
+      <div class="chart-header">
+        <div class="chart-title-wrap">
+          <mat-icon>bar_chart</mat-icon>
+          <div>
+            <h3 class="chart-title">Orders per Month</h3>
+            <p class="chart-subtitle">Monthly order volume</p>
+          </div>
+        </div>
+      </div>
+      <div class="chart-body">
+        <apx-chart [series]="barSeries" [chart]="barChartOptions.chart" [xaxis]="barChartOptions.xaxis"
+          [yaxis]="barChartOptions.yaxis" [plotOptions]="barChartOptions.plotOptions"
+          [tooltip]="barChartOptions.tooltip" [grid]="barChartOptions.grid" [dataLabels]="barChartOptions.dataLabels"
+          [colors]="barChartOptions.colors"></apx-chart>
+      </div>
+    </div>
+
+    <!-- Income Donut Chart -->
+    <div class="chart-card half">
+      <div class="chart-header">
+        <div class="chart-title-wrap">
+          <mat-icon>donut_large</mat-icon>
+          <div>
+            <h3 class="chart-title">Income by Quarter</h3>
+            <p class="chart-subtitle">Distribution across Q1–Q4</p>
+          </div>
+        </div>
+      </div>
+      <div class="chart-body donut-body">
+        <apx-chart [series]="donutSeries" [chart]="donutChartOptions.chart" [labels]="donutChartOptions.labels"
+          [legend]="donutChartOptions.legend" [tooltip]="donutChartOptions.tooltip"
+          [plotOptions]="donutChartOptions.plotOptions" [colors]="donutChartOptions.colors"
+          [dataLabels]="donutChartOptions.dataLabels"></apx-chart>
+      </div>
+    </div>
+
+  </div>
+</div>
