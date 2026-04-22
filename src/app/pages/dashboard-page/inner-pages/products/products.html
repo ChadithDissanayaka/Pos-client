@@ -1,1 +1,74 @@
-<p>products works!</p>
+<div class="page-container">
+    <div class="page-header">
+        <div class="header-left">
+            <h1 class="page-title">Products</h1>
+            <span class="record-count">{{ filteredProducts.length }} records</span>
+        </div>
+        <div class="header-actions">
+            <div class="search-bar">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input type="text" placeholder="Search products..." [(ngModel)]="searchTerm" (input)="onSearch()"
+                    class="search-input" />
+                <mat-icon *ngIf="searchTerm" class="clear-icon" (click)="clearSearch()">close</mat-icon>
+            </div>
+            <button class="btn-primary" (click)="openCreateDialog()">
+                <mat-icon>add</mat-icon>
+                New Product
+            </button>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Description</th>
+                    <th>Qty on Hand</th>
+                    <th>Unit Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let product of pagedProducts" class="table-row">
+                    <td class="id-cell">{{ product.id }}</td>
+                    <td class="desc-cell">
+                        <div class="product-icon">
+                            <mat-icon>inventory_2</mat-icon>
+                        </div>
+                        <span>{{ product.description }}</span>
+                    </td>
+                    <td>
+                        <span class="qty-badge" [class.low]="product.qtyOnHand < 50">
+                            {{ product.qtyOnHand }}
+                        </span>
+                    </td>
+                    <td class="price-cell">{{ product.unitPrice | currency }}</td>
+                    <td class="actions-cell">
+                        <button class="icon-btn edit-btn" (click)="openUpdateDialog(product)" matTooltip="Update">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="icon-btn delete-btn" (click)="deleteProduct(product.id)" matTooltip="Delete">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr *ngIf="pagedProducts.length === 0">
+                    <td colspan="5" class="empty-state">
+                        <mat-icon>inventory</mat-icon>
+                        <p>No products found</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-wrapper">
+        <span class="pagination-info">
+            Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ min(currentPage * pageSize, filteredProducts.length) }} of
+            {{ filteredProducts.length }}
+        </span>
+        <mat-paginator [length]="filteredProducts.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
+            (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
+    </div>
+</div>

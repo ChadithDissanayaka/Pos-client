@@ -1,0 +1,318 @@
+.page-container {
+    padding: 28px 32px;
+    background: var(--light-color);
+    min-height: 100%;
+}
+
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 16px;
+
+    .header-left {
+        display: flex;
+        align-items: baseline;
+        gap: 12px;
+
+        .page-title {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0;
+        }
+
+        .record-count {
+            font-size: 0.85rem;
+            color: var(--gray-color);
+            background: #f0f2f5;
+            padding: 2px 10px;
+            border-radius: 12px;
+        }
+    }
+
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: #f5f6fa;
+    border: 1.5px solid #e2e6ea;
+    border-radius: 10px;
+    padding: 0 14px;
+    height: 44px;
+    gap: 8px;
+    transition: border-color 0.2s;
+
+    &:focus-within {
+        border-color: var(--blue-color);
+        background: #fff;
+    }
+
+    .search-icon {
+        color: var(--gray-color);
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .search-input {
+        border: none;
+        background: transparent;
+        outline: none;
+        font-size: 0.9rem;
+        color: var(--primary-color);
+        width: 220px;
+
+        &::placeholder {
+            color: var(--gray-color);
+        }
+    }
+
+    .clear-icon {
+        color: var(--gray-color);
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+
+        &:hover {
+            color: var(--danger-color);
+        }
+    }
+}
+
+.btn-primary {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--green-color);
+    color: var(--light-color);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+
+    mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+    }
+
+    &:hover {
+        background: #138d75;
+        transform: translateY(-1px);
+    }
+}
+
+.table-wrapper {
+    background: #fff;
+    border-radius: 14px;
+    border: 1.5px solid #e8ecef;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(44, 62, 80, 0.06);
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+        background: var(--primary-color);
+
+        th {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 14px 18px;
+            text-align: left;
+        }
+    }
+
+    .table-row {
+        border-bottom: 1px solid #f0f2f5;
+        transition: background 0.15s;
+
+        &:last-child {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background: #f8fafc;
+        }
+
+        td {
+            padding: 14px 18px;
+            font-size: 0.9rem;
+            color: var(--dark-gray-color);
+        }
+    }
+}
+
+.id-cell {
+    font-weight: 700;
+    color: var(--primary-color) !important;
+    width: 80px;
+}
+
+.customer-cell {
+    align-items: center;
+    gap: 12px;
+
+    .avatar {
+        width: 36px;
+        height: 36px;
+        background: var(--primary-color);
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex-shrink: 0;
+    }
+}
+
+.cost-cell {
+    font-weight: 700;
+    color: var(--green-color) !important;
+}
+
+.items-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(41, 128, 185, 0.1);
+    color: var(--blue-color);
+    border: none;
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+
+    mat-icon {
+        font-size: 15px;
+        width: 15px;
+        height: 15px;
+    }
+
+    &:hover {
+        background: rgba(41, 128, 185, 0.2);
+        transform: scale(1.04);
+    }
+}
+
+.date-cell {
+    align-items: center;
+    gap: 6px;
+
+    .date-icon {
+        font-size: 16px;
+        width: 16px;
+        height: 16px;
+        color: var(--gray-color);
+    }
+}
+
+.box {
+    display: flex;
+    align-items: center;
+}
+
+.actions-cell {
+    gap: 8px;
+    align-items: center;
+}
+
+.icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+
+    mat-icon {
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+    }
+
+    &:hover {
+        transform: scale(1.08);
+    }
+
+    &.view-btn {
+        background: rgba(22, 160, 133, 0.1);
+        color: var(--green-color);
+
+        &:hover {
+            background: rgba(22, 160, 133, 0.2);
+        }
+    }
+
+    &.delete-btn {
+        background: rgba(192, 57, 43, 0.1);
+        color: var(--danger-color);
+
+        &:hover {
+            background: rgba(192, 57, 43, 0.2);
+        }
+    }
+}
+
+.empty-state {
+    text-align: center !important;
+    padding: 48px !important;
+    color: var(--gray-color) !important;
+
+    mat-icon {
+        font-size: 48px;
+        width: 48px;
+        height: 48px;
+        display: block;
+        margin: 0 auto 12px;
+    }
+
+    p {
+        margin: 0;
+        font-size: 1rem;
+    }
+}
+
+.pagination-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .pagination-info {
+        font-size: 0.85rem;
+        color: var(--gray-color);
+    }
+
+    ::ng-deep .mat-mdc-paginator {
+        background: transparent;
+    }
+}

@@ -1,1 +1,85 @@
-<p>orders works!</p>
+<div class="page-container">
+    <div class="page-header">
+        <div class="header-left">
+            <h1 class="page-title">Orders</h1>
+            <span class="record-count">{{ filteredOrders.length }} records</span>
+        </div>
+        <div class="header-actions">
+            <div class="search-bar">
+                <mat-icon class="search-icon">search</mat-icon>
+                <input type="text" placeholder="Search orders..." [(ngModel)]="searchTerm" (input)="onSearch()"
+                    class="search-input" />
+                <mat-icon *ngIf="searchTerm" class="clear-icon" (click)="clearSearch()">close</mat-icon>
+            </div>
+            <button class="btn-primary" (click)="placeOrder()">
+                <mat-icon>add_shopping_cart</mat-icon>
+                Place Order
+            </button>
+        </div>
+    </div>
+
+    <div class="table-wrapper">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Order Cost</th>
+                    <th>Items</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let order of pagedOrders" class="table-row">
+                    <td class="id-cell">#{{ order.id }}</td>
+                    <td class="customer-cell">
+                        <div class="box">
+                            <div class="avatar">{{ order.customerName.charAt(0) }}</div>
+                            <span>{{ order.customerName }}</span>
+                        </div>
+                    </td>
+                    <td class="cost-cell">{{ order.orderCost | currency }}</td>
+                    <td>
+                        <button class="items-badge" (click)="viewOrderDetails(order)">
+                            <mat-icon>receipt_long</mat-icon>
+                            {{ order.items.length }} item{{ order.items.length !== 1 ? 's' : '' }}
+                        </button>
+                    </td>
+                    <td class="date-cell">
+                        <div class="box">
+                            <mat-icon class="date-icon">calendar_today</mat-icon>
+                            {{ order.date | date: 'MMM d, y' }}
+                        </div>
+                    </td>
+                    <td class="actions-cell">
+                        <div class="box">
+                            <button class="icon-btn view-btn" (click)="viewOrderDetails(order)"
+                                matTooltip="View Details">
+                                <mat-icon>visibility</mat-icon>
+                            </button>
+                            <button class="icon-btn delete-btn" (click)="deleteOrder(order.id)" matTooltip="Delete">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+                <tr *ngIf="pagedOrders.length === 0">
+                    <td colspan="6" class="empty-state">
+                        <mat-icon>receipt_long</mat-icon>
+                        <p>No orders found</p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="pagination-wrapper">
+        <span class="pagination-info">
+            Showing {{ (currentPage - 1) * pageSize + 1 }}–{{ min(currentPage * pageSize, filteredOrders.length) }} of
+            {{ filteredOrders.length }}
+        </span>
+        <mat-paginator [length]="filteredOrders.length" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]"
+            (page)="onPageChange($event)" showFirstLastButtons></mat-paginator>
+    </div>
+</div>
