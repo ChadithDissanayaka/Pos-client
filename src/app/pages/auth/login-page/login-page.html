@@ -1,1 +1,27 @@
-<p>login-page works!</p>
+<div class="outer">
+  <div class="inner">
+    <form [formGroup]="loginForm" (ngSubmit)="execute()">
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" type="email" matInput placeholder="Ex. pat@example.com">
+        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+          <mat-error>Please enter a valid email.</mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field class="full-width" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input formControlName="password" type="password" matInput>
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <mat-error>Password is required.</mat-error>
+        }
+      </mat-form-field>
+
+      <button style="width:100%" matButton="tonal" type="submit">Login</button>
+    </form>
+
+    <hr>
+
+    <a routerLink="/home/signup">New here? Create an account.</a>
+  </div>
+</div>
