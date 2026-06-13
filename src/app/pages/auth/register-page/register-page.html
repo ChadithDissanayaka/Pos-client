@@ -1,45 +1,83 @@
-<div class="outer">
-  <div class="inner">
-    <form [formGroup]="form" (ngSubmit)="execute()">
+<div class="auth-outer">
+  <!-- Left branding panel -->
+  <div class="auth-brand">
+    <img src="logo.png" alt="POS Logo" class="brand-logo">
+    <h1 class="brand-title">POS System</h1>
+    <p class="brand-subtitle">Join thousands of businesses managing smarter.</p>
+  </div>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Full Name</mat-label>
-        <input formControlName="fullName" type="text" matInput placeholder="Ex. Saman Perera">
-        @if (form.get('fullName')?.invalid && form.get('fullName')?.touched) {
-          <mat-error>
-            @if (form.get('fullName')?.hasError('required')) { Full name is required. }
-            @else if (form.get('fullName')?.hasError('minlength')) { At least 2 characters required. }
-            @else if (form.get('fullName')?.hasError('pattern')) { Only letters, spaces, hyphens and apostrophes allowed. }
-          </mat-error>
-        }
-      </mat-form-field>
+  <!-- Right form panel -->
+  <div class="auth-panel">
+    <app-alert></app-alert>
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h2>Create your account</h2>
+        <p>Fill in the details below to get started</p>
+      </div>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Email</mat-label>
-        <input formControlName="email" type="email" matInput placeholder="Ex. pat@example.com">
-        @if (form.get('email')?.invalid && form.get('email')?.touched) {
-          <mat-error>Please enter a valid email address.</mat-error>
-        }
-      </mat-form-field>
+      <form [formGroup]="form" (ngSubmit)="execute()" novalidate>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Password</mat-label>
-        <input formControlName="password" type="password" matInput>
-        @if (form.get('password')?.invalid && form.get('password')?.touched) {
-          <mat-error>
-            @if (form.get('password')?.hasError('required')) { Password is required. }
-            @else if (form.get('password')?.hasError('minlength')) { Minimum 8 characters required. }
-            @else if (form.get('password')?.hasError('weakPassword')) { Must include uppercase, lowercase, digit and special character (@$!%*?&). }
-          </mat-error>
-        }
-      </mat-form-field>
+        <div class="field-group">
+          <label class="field-label" for="fullName">Full name</label>
+          <mat-form-field class="full-width" appearance="outline">
+            <input id="fullName" formControlName="fullName" type="text" matInput placeholder="Ex. Saman Perera">
+            @if (form.get('fullName')?.invalid && form.get('fullName')?.touched) {
+              <mat-error>
+                @if (form.get('fullName')?.hasError('required')) { Full name is required. }
+                @else if (form.get('fullName')?.hasError('minlength')) { At least 2 characters required. }
+                @else if (form.get('fullName')?.hasError('pattern')) { Only letters, spaces, hyphens and apostrophes allowed. }
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
 
-      <!-- Fixed: was showing "Login" on the register page -->
-      <button style="width:100%" matButton="tonal" type="submit">Sign Up</button>
-    </form>
+        <div class="field-group">
+          <label class="field-label" for="email">Email address</label>
+          <mat-form-field class="full-width" appearance="outline">
+            <input id="email" formControlName="email" type="email" matInput placeholder="you@example.com">
+            @if (form.get('email')?.invalid && form.get('email')?.touched) {
+              <mat-error>Please enter a valid email address.</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
-    <hr>
+        <div class="field-group">
+          <label class="field-label" for="password">Password</label>
+          <mat-form-field class="full-width" appearance="outline">
+            <input
+              id="password"
+              formControlName="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              matInput
+              placeholder="Min 8 chars, uppercase, digit & symbol">
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="showPassword.set(!showPassword())"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+              <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (form.get('password')?.invalid && form.get('password')?.touched) {
+              <mat-error>
+                @if (form.get('password')?.hasError('required')) { Password is required. }
+                @else if (form.get('password')?.hasError('minlength')) { Minimum 8 characters required. }
+                @else if (form.get('password')?.hasError('weakPassword')) { Must include uppercase, lowercase, digit and special character (@$!%*?&). }
+              </mat-error>
+            }
+          </mat-form-field>
+        </div>
 
-    <a routerLink="/home/login">Already have an account? Login.</a>
+        <button class="btn-primary full-width" type="submit" [disabled]="loading()">
+          @if (loading()) { <span class="spinner"></span> Creating account… }
+          @else { Create Account }
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <span>Already have an account?</span>
+        <a routerLink="/home/login">Sign in</a>
+      </div>
+    </div>
   </div>
 </div>
