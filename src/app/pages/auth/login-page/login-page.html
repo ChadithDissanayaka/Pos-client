@@ -1,27 +1,65 @@
-<div class="outer">
-  <div class="inner">
-    <form [formGroup]="loginForm" (ngSubmit)="execute()">
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Email</mat-label>
-        <input formControlName="email" type="email" matInput placeholder="Ex. pat@example.com">
-        @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
-          <mat-error>Please enter a valid email.</mat-error>
-        }
-      </mat-form-field>
+<div class="auth-outer">
+  <!-- Left branding panel -->
+  <div class="auth-brand">
+    <img src="logo.png" alt="POS Logo" class="brand-logo">
+    <h1 class="brand-title">POS System</h1>
+    <p class="brand-subtitle">Manage your business smarter, faster and easier.</p>
+  </div>
 
-      <mat-form-field class="full-width" appearance="fill">
-        <mat-label>Password</mat-label>
-        <input formControlName="password" type="password" matInput>
-        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
-          <mat-error>Password is required.</mat-error>
-        }
-      </mat-form-field>
+  <!-- Right form panel -->
+  <div class="auth-panel">
+    <app-alert></app-alert>
+    <div class="auth-card">
+      <div class="auth-card-header">
+        <h2>Welcome back</h2>
+        <p>Sign in to your account to continue</p>
+      </div>
 
-      <button style="width:100%" matButton="tonal" type="submit">Login</button>
-    </form>
+      <form [formGroup]="loginForm" (ngSubmit)="execute()" novalidate>
 
-    <hr>
+        <div class="field-group">
+          <label class="field-label" for="email">Email address</label>
+          <mat-form-field class="full-width" appearance="outline">
+            <input id="email" formControlName="email" type="email" matInput placeholder="you@example.com">
+            @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+              <mat-error>Please enter a valid email address.</mat-error>
+            }
+          </mat-form-field>
+        </div>
 
-    <a routerLink="/home/signup">New here? Create an account.</a>
+        <div class="field-group">
+          <label class="field-label" for="password">Password</label>
+          <mat-form-field class="full-width" appearance="outline">
+            <input
+              id="password"
+              formControlName="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              matInput
+              placeholder="Enter your password">
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="showPassword.set(!showPassword())"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'">
+              <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+            @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+              <mat-error>Password is required.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <button class="btn-primary full-width" type="submit" [disabled]="loading()">
+          @if (loading()) { <span class="spinner"></span> Signing in… }
+          @else { Sign In }
+        </button>
+      </form>
+
+      <div class="auth-footer">
+        <span>Don't have an account?</span>
+        <a routerLink="/home/signup">Create one</a>
+      </div>
+    </div>
   </div>
 </div>
