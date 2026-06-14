@@ -1,0 +1,16 @@
+<div class="alert-container">
+  @for (alert of alertService.alerts(); track alert.id) {
+    <div class="alert-item" [ngClass]="alert.type">
+      <span class="alert-icon">
+        @switch (alert.type) {
+          @case ('success') { ✓ }
+          @case ('error') { ✕ }
+          @case ('warning') { ⚠ }
+          @default { ℹ }
+        }
+      </span>
+      <span class="alert-message">{{ alert.message }}</span>
+      <button class="alert-close" (click)="alertService.dismiss(alert.id)" aria-label="Close">×</button>
+    </div>
+  }
+</div>
