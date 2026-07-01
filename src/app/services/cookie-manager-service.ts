@@ -18,8 +18,8 @@ export class CookieManagerService {
     this.cookieService.set(this.TOKEN_NAME, token, 1, '/');
   }
 
-  getToken(): string {
-    return this.cookieService.get(this.TOKEN_NAME);
+  getToken(): string | null {
+    return this.cookieService.get(this.TOKEN_NAME) || null;
   }
 
   removeToken(): void {
